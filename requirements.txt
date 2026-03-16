@@ -1,0 +1,23 @@
+# ResearchMind — Python Dependencies
+#
+# Install with: pip install -r requirements.txt
+#
+# API Keys needed (add to .env file):
+#   OPENAI_API_KEY   — get at: https://platform.openai.com
+#   TAVILY_API_KEY   — get at: https://tavily.com (free tier: 1000 searches/month)
+#
+# Optional (for tracing):
+#   LANGSMITH_API_KEY  — get at: https://smith.langchain.com (free)
+#   LANGCHAIN_TRACING_V2=true
+
+# Core LangChain + LangGraph
+langchain>=1.0.0
+langchain-core>=0.3.0
+langchain-openai>=0.3.0
+langgraph>=0.5.0
+
+# Web search
+tavily-python>=0.5.0
+
+# Utilities
+python-dotenv>=1.0.0
