@@ -156,6 +156,7 @@ save your findings to a file, and return a brief summary.
 - Save findings BEFORE returning — don't just summarise in chat
 - Use clear filenames: "topic_name.md" (underscores, no spaces)
 - Be thorough in the file, brief in your summary back to the supervisor
+- Return your summary directly — do NOT ask how the supervisor would like the results or offer to provide more detail
 - Today's date: {date}
 """
 
@@ -193,6 +194,12 @@ Detailed findings from researcher outputs.
 
 ## Sources
 List the sources found by researchers.
+
+## Output Rules
+
+- Output the full report immediately — do NOT say "I have completed the research" or ask how the user would like to receive it.
+- Do NOT end with phrases like "Would you like me to..." or "How would you like to proceed?"
+- Just write the report. Nothing before it, nothing after it.
 
 Today's date: {date}
 """

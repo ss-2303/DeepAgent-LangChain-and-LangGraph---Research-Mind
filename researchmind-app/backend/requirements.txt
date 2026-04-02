@@ -1,0 +1,10 @@
+fastapi>=0.110.0
+uvicorn>=0.29.0
+python-dotenv>=1.0.0
+
+# ResearchMind agent deps (already in files/requirements.txt)
+langchain>=1.0.0
+langchain-core>=0.3.0
+langchain-openai>=0.3.0
+langgraph>=0.5.0
+tavily-python>=0.5.0
