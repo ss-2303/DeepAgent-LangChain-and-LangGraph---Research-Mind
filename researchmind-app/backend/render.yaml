@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: researchmind-backend
+    runtime: python
+    rootDir: researchmind-app/backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: TAVILY_API_KEY
+        sync: false
+      - key: LANGSMITH_API_KEY
+        sync: false
+      - key: LANGCHAIN_TRACING_V2
+        value: "true"
+      - key: LANGCHAIN_PROJECT
+        value: researchmind
+      - key: LANGSMITH_ENDPOINT
+        value: https://eu.api.smith.langchain.com
