@@ -31,9 +31,12 @@ export function useAgentStream() {
 
     // Close any existing stream
     if (sourceRef.current) sourceRef.current.close()
-
-    // Open SSE connection to backend
-    const url = `http://localhost:8000/research?topic=${encodeURIComponent(topic)}`
+ 
+    // Uses VITE_API_URL from .env for production, falls back to localhost for dev
+    const API = import.meta.env.VITE_API_URL || 'http://localhost:8000'
+    const url = `${API}/research?topic=${encodeURIComponent(topic)}`
+ 
+    // Create the EventSource connection
     const source = new EventSource(url)
     sourceRef.current = source
 

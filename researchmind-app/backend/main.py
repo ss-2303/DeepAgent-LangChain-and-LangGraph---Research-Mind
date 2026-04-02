@@ -1,10 +1,8 @@
 """
 backend/main.py — FastAPI Backend with SSE Streaming
-Render-ready: no local path hacks needed, env vars loaded from Render dashboard
 """
 
 import json
-import os
 import sys
 from pathlib import Path
 from typing import AsyncGenerator
@@ -12,39 +10,27 @@ from typing import AsyncGenerator
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-from dotenv import load_dotenv
 
 # ── Path setup ────────────────────────────────────────────────────────────────
-# Local dev: walk up to find project root containing researchmind/
-# Render:    researchmind/ is copied into the same directory by render.yaml
-
-def find_root() -> Path:
-    """Walk up from this file until we find researchmind/ package."""
-    current = Path(__file__).resolve().parent
-    for _ in range(6):
-        if (current / "researchmind").exists():
-            return current
-        current = current.parent
-    raise FileNotFoundError("Could not find researchmind/ package")
-
-ROOT = find_root()
+# backend/main.py is at: Deep Agent - Claude/researchmind-app/backend/main.py
+# researchmind/   is at: Deep Agent - Claude/researchmind/
+# .env            is at: Deep Agent - Claude/.env
+#
+# ROOT = two levels up from backend/
+ROOT = Path(__file__).parent.parent.parent
 sys.path.append(str(ROOT))
-load_dotenv(ROOT / ".env")  # no-op on Render (uses dashboard env vars)
 
-# ── Import agent ──────────────────────────────────────────────────────────────
+from dotenv import load_dotenv
+load_dotenv(ROOT / ".env")
+
+# ── Import agent (after path is set) ─────────────────────────────────────────
 from researchmind.agents.agent import build_research_agent
 
 app = FastAPI(title="ResearchMind API")
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://localhost:5173",
-        "http://localhost:5174",
-        "https://*.vercel.app",   # all Vercel preview URLs
-        os.getenv("FRONTEND_URL", ""),  # set in Render dashboard
-    ],
+    allow_origins=["http://localhost:5174","http://localhost:5173", "http://localhost:3000"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
