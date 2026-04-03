@@ -73,7 +73,16 @@ export default function App() {
           <div className="chat-welcome">
             <div className="welcome-icon">◈</div>
             <h2 className="welcome-title">What would you like to research?</h2>
+            <p className="welcome-sub">Please allow up to 60 seconds on first use while the server wakes up.</p>
             <p className="welcome-sub">Enter a topic below and I'll conduct a comprehensive deep research analysis for you.</p>
+            <div className="welcome-input">
+              <TopicInput
+                value={topic}
+                onChange={setTopic}
+                onSubmit={handleResearch}
+                disabled={status === "running"}
+              />
+            </div>
           </div>
         ) : (
           <div className="chat-messages">
@@ -142,15 +151,17 @@ export default function App() {
         <div ref={chatBottomRef} />
       </div>
 
-      {/* Input bar — always at bottom */}
-      <div className="input-bar">
-        <TopicInput
-          value={topic}
-          onChange={setTopic}
-          onSubmit={handleResearch}
-          disabled={status === "running"}
-        />
-      </div>
+      {/* Input bar — only shown after research starts */}
+      {submittedTopic && (
+        <div className="input-bar">
+          <TopicInput
+            value={topic}
+            onChange={setTopic}
+            onSubmit={handleResearch}
+            disabled={status === "running"}
+          />
+        </div>
+      )}
     </div>
   )
 }
